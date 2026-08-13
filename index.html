@@ -1,85 +1,599 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071426">
 <link rel="manifest" href="manifest.json">
-<title>AMUSTA</title>
+<title>AMUSTA | خدماتك في مكان واحد</title>
+
 <style>
-:root{--navy:#071426;--navy2:#0d2039;--gold:#e8ad2f;--white:#fff;--muted:#aeb9c8}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f5f7fa;color:#111}
-.app{max-width:480px;margin:auto;min-height:100vh;background:#f5f7fa}
-header{background:linear-gradient(145deg,#061221,#102a48);color:#fff;padding:18px 16px 20px;border-radius:0 0 24px 24px}
-.top{display:flex;align-items:center;justify-content:space-between}.brand{font-size:24px;font-weight:800;letter-spacing:.5px}.brand b{color:var(--gold)}
-.icon{font-size:22px}.search{margin-top:16px;background:#fff;border-radius:13px;padding:12px 14px;color:#777;display:flex;gap:8px}
-.hero{margin-top:14px;background:linear-gradient(135deg,#102d4e,#071426);border:1px solid #274767;border-radius:18px;padding:20px;color:#fff;position:relative;overflow:hidden}
-.hero h1{margin:0 0 8px;font-size:23px}.hero p{margin:0 0 16px;color:#d9e0e8}.btn{border:0;border-radius:10px;background:var(--gold);color:#101820;padding:11px 18px;font-weight:800}
-section{padding:18px 14px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.section-head h2{font-size:18px;margin:0}.link{color:#b17a00;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.cat{background:#fff;border-radius:14px;padding:12px 5px;text-align:center;box-shadow:0 3px 12px #0000000b}.cat .emoji{font-size:25px}.cat small{display:block;margin-top:7px;font-size:11px}
-.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:#fff;border-radius:16px;padding:10px;box-shadow:0 3px 14px #0000000b}.pic{height:125px;border-radius:12px;background:linear-gradient(135deg,#edf2f7,#fff);display:flex;align-items:center;justify-content:center;font-size:58px}.card h3{font-size:14px;margin:9px 0 5px}.price{font-weight:800}.old{color:#9aa3ae;text-decoration:line-through;font-size:11px;margin-right:5px}.buy{width:100%;margin-top:9px}
-.service{background:#fff;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:10px}.service .sicon{width:48px;height:48px;border-radius:13px;background:#102b4a;color:var(--gold);display:grid;place-items:center;font-size:23px}.service h3{margin:0 0 5px;font-size:14px}.service p{margin:0;color:#777;font-size:12px}
-nav{position:sticky;bottom:0;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}.navitem{text-align:center;color:#777;font-size:10px}.navitem b{display:block;font-size:20px;margin-bottom:2px}.active{color:#b17a00}
-.page{display:none;padding-bottom:85px}.page.active{display:block}.empty{padding:70px 20px;text-align:center;color:#777}.cart-row{background:#fff;padding:12px;border-radius:14px;display:flex;gap:10px;margin-bottom:10px}.cart-row .mini{width:60px;height:60px;background:#f1f4f7;border-radius:10px;display:grid;place-items:center;font-size:30px}.total{background:#fff;border-radius:15px;padding:15px;margin-top:12px}.total-line{display:flex;justify-content:space-between;margin:8px 0}.gold{color:#b17a00;font-weight:800}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --navy:#071426;
+  --navy2:#0d2039;
+  --gold:#e8b23c;
+  --gold2:#ffd66b;
+  --white:#ffffff;
+  --muted:#aebbd0;
+  --card:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.14);
+}
+
+body{
+  font-family:Arial,Tahoma,sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(232,178,60,.20), transparent 28%),
+    radial-gradient(circle at 85% 30%, rgba(20,100,180,.28), transparent 30%),
+    linear-gradient(145deg,#020812,#071426 45%,#0b1e36);
+  color:white;
+  min-height:100vh;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:rgba(232,178,60,.08);
+  filter:blur(60px);
+  top:40%;
+  left:-120px;
+  pointer-events:none;
+}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:90px;
+}
+
+/* HEADER */
+header{
+  padding:22px 18px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:29px;
+  font-weight:900;
+  letter-spacing:1px;
+  color:var(--gold);
+}
+
+.logo span{
+  color:white;
+}
+
+.bell{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
+  font-size:22px;
+}
+
+/* HERO */
+.hero{
+  margin:10px 15px 20px;
+  padding:28px 20px;
+  border-radius:28px;
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(135deg,rgba(13,40,70,.96),rgba(4,15,30,.94));
+  border:1px solid rgba(232,178,60,.28);
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background:rgba(232,178,60,.10);
+  left:-80px;
+  top:-80px;
+  filter:blur(10px);
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 13px;
+  border-radius:30px;
+  background:rgba(232,178,60,.13);
+  color:var(--gold2);
+  border:1px solid rgba(232,178,60,.25);
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-size:29px;
+  line-height:1.35;
+  margin-bottom:12px;
+}
+
+.hero h1 span{
+  color:var(--gold2);
+}
+
+.hero p{
+  color:#c5d0df;
+  line-height:1.8;
+  font-size:15px;
+  margin-bottom:20px;
+}
+
+.main-btn{
+  display:inline-block;
+  border:0;
+  padding:14px 23px;
+  border-radius:15px;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:#111;
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 25px rgba(232,178,60,.22);
+}
+
+/* SECTION */
+section{
+  padding:0 15px 20px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.section-title h2{
+  font-size:21px;
+}
+
+.section-title span{
+  color:var(--gold);
+  font-size:13px;
+}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.service{
+  padding:20px 12px;
+  border-radius:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.service:active{
+  transform:scale(.97);
+}
+
+.service-icon{
+  width:52px;
+  height:52px;
+  margin-bottom:12px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(232,178,60,.12);
+  border:1px solid rgba(232,178,60,.22);
+  font-size:27px;
+}
+
+.service h3{
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.service p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* FEATURE */
+.feature{
+  margin-top:5px;
+  padding:20px;
+  border-radius:22px;
+  background:
+    linear-gradient(135deg,rgba(232,178,60,.15),rgba(255,255,255,.04));
+  border:1px solid rgba(232,178,60,.2);
+}
+
+.feature h3{
+  color:var(--gold2);
+  margin-bottom:8px;
+}
+
+.feature p{
+  color:#c4cfdd;
+  font-size:14px;
+  line-height:1.8;
+}
+
+/* CONTACT */
+.contact{
+  display:grid;
+  gap:10px;
+}
+
+.contact-btn{
+  width:100%;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.07);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.contact-btn.gold{
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  color:#111;
+}
+
+/* BOTTOM NAV */
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  max-width:520px;
+  margin:auto;
+  height:72px;
+  background:rgba(4,12,24,.94);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  z-index:10;
+}
+
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:#91a0b4;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.nav-btn div{
+  font-size:22px;
+  margin-bottom:4px;
+}
+
+.nav-btn.active{
+  color:var(--gold);
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:20;
+  padding:20px;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:500px;
+  background:#0a192c;
+  border:1px solid var(--border);
+  border-radius:25px 25px 10px 10px;
+  padding:22px;
+  box-shadow:0 -20px 60px rgba(0,0,0,.4);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.close{
+  border:0;
+  background:rgba(255,255,255,.08);
+  color:white;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  font-size:20px;
+}
+
+input,textarea,select{
+  width:100%;
+  margin-bottom:11px;
+  padding:14px;
+  border-radius:13px;
+  border:1px solid var(--border);
+  background:#071426;
+  color:white;
+  outline:none;
+  font-size:14px;
+}
+
+textarea{
+  min-height:90px;
+  resize:none;
+}
+
+.note{
+  color:#93a2b6;
+  font-size:11px;
+  line-height:1.7;
+  margin-top:8px;
+}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<div id="home" class="page active">
+
 <header>
-<div class="top"><div class="brand"><b>AM</b>USTA</div><div class="icon">🔔</div></div>
-<div class="search">🔎 <span>ابحث عن منتج أو خدمة...</span></div>
-<div class="hero"><h1>كل احتياجاتك في مكان واحد</h1><p>تسوّق منتجاتك واحجز خدماتك بسهولة.</p><button class="btn" onclick="go('products')">تسوق الآن</button></div>
+  <div class="bell">🔔</div>
+  <div class="logo"><span>A</span>MUSTA</div>
 </header>
-<section><div class="section-head"><h2>الأقسام</h2><span class="link">عرض الكل</span></div>
-<div class="grid">
-<div class="cat" onclick="go('products')"><div class="emoji">🎧</div><small>إلكترونيات</small></div>
-<div class="cat" onclick="go('products')"><div class="emoji">👕</div><small>أزياء</small></div>
-<div class="cat" onclick="go('products')"><div class="emoji">🛋️</div><small>منزل ومطبخ</small></div>
-<div class="cat" onclick="go('products')"><div class="emoji">🧴</div><small>عناية شخصية</small></div>
-</div></section>
-<section><div class="section-head"><h2>عروض مميزة</h2><span class="link">عرض الكل</span></div>
-<div class="products">
-<div class="card"><div class="pic">⌚</div><h3>ساعة ذكية</h3><span class="price">1,199 ج.م</span><span class="old">1,499</span><button class="btn buy" onclick="add('ساعة ذكية','⌚',1199)">أضف للسلة</button></div>
-<div class="card"><div class="pic">🎧</div><h3>سماعة بلوتوث</h3><span class="price">849 ج.م</span><span class="old">999</span><button class="btn buy" onclick="add('سماعة بلوتوث','🎧',849)">أضف للسلة</button></div>
-</div></section>
-<section><div class="section-head"><h2>خدمات AMUSTA</h2><span class="link">عرض الكل</span></div>
-<div class="service"><div class="sicon">🔧</div><div><h3>صيانة وإصلاح</h3><p>اطلب خدمة موثوقة وحدد موعدك بسهولة.</p></div></div>
-<div class="service"><div class="sicon">🚚</div><div><h3>توصيل سريع</h3><p>توصيل طلباتك إلى باب المنزل.</p></div></div>
-</section>
+
+<div class="hero">
+  <div class="badge">خدمات احترافية في مكان واحد</div>
+
+  <h1>
+    خلي بيتك <span>أأمن</span><br>
+    وخدماتك أسهل
+  </h1>
+
+  <p>
+    تركيب كاميرات المراقبة وخدمات كهرباء المنازل
+    باحترافية وسرعة، من أول الطلب لحد إتمام الخدمة.
+  </p>
+
+  <button class="main-btn" onclick="openOrder()">
+    🛠️ اطلب خدمة الآن
+  </button>
 </div>
 
-<div id="products" class="page"><header><div class="top"><div class="brand"><b>AM</b>USTA</div><div onclick="go('home')">‹</div></div><h2>المنتجات</h2></header>
-<section><div class="products">
-<div class="card"><div class="pic">⌚</div><h3>ساعة ذكية</h3><span class="price">1,199 ج.م</span><button class="btn buy" onclick="add('ساعة ذكية','⌚',1199)">أضف للسلة</button></div>
-<div class="card"><div class="pic">🎧</div><h3>سماعة بلوتوث</h3><span class="price">849 ج.م</span><button class="btn buy" onclick="add('سماعة بلوتوث','🎧',849)">أضف للسلة</button></div>
-<div class="card"><div class="pic">🧴</div><h3>عطر رجالي</h3><span class="price">599 ج.م</span><button class="btn buy" onclick="add('عطر رجالي','🧴',599)">أضف للسلة</button></div>
-<div class="card"><div class="pic">👕</div><h3>تيشيرت</h3><span class="price">399 ج.م</span><button class="btn buy" onclick="add('تيشيرت','👕',399)">أضف للسلة</button></div>
-</div></section></div>
+<section>
+  <div class="section-title">
+    <h2>خدمات AMUSTA</h2>
+    <span>اختر خدمتك</span>
+  </div>
 
-<div id="services" class="page"><header><div class="top"><div class="brand"><b>AM</b>USTA</div><div onclick="go('home')">‹</div></div><h2>الخدمات</h2></header><section>
-<div class="service"><div class="sicon">🔧</div><div><h3>صيانة وإصلاح</h3><p>خدمة منزلية حسب الموعد.</p></div><button class="btn" onclick="alert('تم تسجيل طلب الخدمة التجريبي')">اطلب الآن</button></div>
-<div class="service"><div class="sicon">🚗</div><div><h3>خدمات سيارات</h3><p>صيانة وفحص وخدمات مساعدة.</p></div><button class="btn" onclick="alert('تم تسجيل طلب الخدمة التجريبي')">اطلب الآن</button></div>
-</section></div>
+  <div class="services">
 
-<div id="cart" class="page"><header><div class="top"><div class="brand"><b>AM</b>USTA</div><div onclick="go('home')">‹</div></div><h2>السلة</h2></header><section id="cartBody"></section></div>
+    <div class="service" onclick="selectService('تركيب كاميرات مراقبة')">
+      <div class="service-icon">📹</div>
+      <h3>كاميرات مراقبة</h3>
+      <p>تركيب وبرمجة وصيانة أنظمة المراقبة.</p>
+    </div>
 
-<div id="account" class="page"><header><div class="top"><div class="brand"><b>AM</b>USTA</div><div>👤</div></div><h2>حسابي</h2></header><section><div class="service"><div class="sicon">👤</div><div><h3>أحمد مصطفى</h3><p>حساب تجريبي - AMUSTA</p></div></div>
-<div class="service"><div class="sicon">📦</div><div><h3>طلباتي</h3><p>متابعة الطلبات وحالتها.</p></div></div>
-<div class="service"><div class="sicon">📍</div><div><h3>العناوين</h3><p>إدارة عناوين التوصيل.</p></div></div></section></div>
+    <div class="service" onclick="selectService('كهرباء منازل')">
+      <div class="service-icon">⚡</div>
+      <h3>كهرباء المنازل</h3>
+      <p>تركيب وإصلاح وتشطيب الأعمال الكهربائية.</p>
+    </div>
+
+    <div class="service" onclick="selectService('صيانة كاميرات')">
+      <div class="service-icon">🛠️</div>
+      <h3>صيانة</h3>
+      <p>كشف الأعطال وإصلاح الكاميرات والكهرباء.</p>
+    </div>
+
+    <div class="service" onclick="selectService('طلب فني')">
+      <div class="service-icon">👨‍🔧</div>
+      <h3>اطلب فني</h3>
+      <p>حدد الخدمة واترك لنا باقي المهمة.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="feature">
+    <h3>⭐ ليه AMUSTA؟</h3>
+    <p>
+      خدمة مباشرة، تعامل محترم، تنفيذ احترافي،
+      ومتابعة مع العميل لحد ما الخدمة تخلص بالشكل المطلوب.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">
+    <h2>تواصل معنا</h2>
+    <span>جاهزين لخدمتك</span>
+  </div>
+
+  <div class="contact">
+    <button class="contact-btn gold" onclick="openOrder()">
+      📋 احجز خدمتك
+    </button>
+
+    <button class="contact-btn" onclick="callUs()">
+      📞 اتصل بنا
+    </button>
+
+    <button class="contact-btn" onclick="whatsapp()">
+      💬 واتساب
+    </button>
+  </div>
+</section>
+
+</div>
 
 <nav>
-<div class="navitem active" onclick="go('home')"><b>⌂</b>الرئيسية</div>
-<div class="navitem" onclick="go('products')"><b>▦</b>المنتجات</div>
-<div class="navitem" onclick="go('services')"><b>⚒</b>الخدمات</div>
-<div class="navitem" onclick="go('cart')"><b>🛒</b>السلة <span id="count"></span></div>
-<div class="navitem" onclick="go('account')"><b>♙</b>حسابي</div>
+  <button class="nav-btn active" onclick="goHome()">
+    <div>⌂</div>
+    الرئيسية
+  </button>
+
+  <button class="nav-btn" onclick="openOrder()">
+    <div>🛠️</div>
+    الخدمات
+  </button>
+
+  <button class="nav-btn" onclick="whatsapp()">
+    <div>💬</div>
+    تواصل
+  </button>
 </nav>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>طلب خدمة من AMUSTA</h2>
+      <button class="close" onclick="closeOrder()">×</button>
+    </div>
+
+    <select id="service">
+      <option value="">اختر الخدمة</option>
+      <option>تركيب كاميرات مراقبة</option>
+      <option>صيانة كاميرات</option>
+      <option>كهرباء منازل</option>
+      <option>تأسيس كهرباء</option>
+      <option>تركيب وتشطيب</option>
+      <option>طلب فني</option>
+    </select>
+
+    <input id="name" placeholder="اسمك">
+
+    <input id="phone" placeholder="رقم الموبايل">
+
+    <textarea id="details" placeholder="اكتب تفاصيل الخدمة أو العطل"></textarea>
+
+    <button class="main-btn" style="width:100%" onclick="sendOrder()">
+      إرسال طلب الخدمة 💬
+    </button>
+
+    <div class="note">
+      ملاحظة: قبل النشر النهائي سنضع رقم هاتفك ورقم واتساب الحقيقيين هنا.
+    </div>
+
+  </div>
 </div>
+
 <script>
-let cart=[];
-function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='cart')renderCart()}
-function add(name,icon,price){cart.push({name,icon,price});document.getElementById('count').textContent='('+cart.length+')';alert('تمت إضافة '+name+' إلى السلة')}
-function renderCart(){let el=document.getElementById('cartBody');if(!cart.length){el.innerHTML='<div class="empty">🛒<br><br>السلة فارغة حاليًا<br>أضف بعض المنتجات للتجربة.</div>';return}let total=cart.reduce((a,b)=>a+b.price,0);el.innerHTML=cart.map((x,i)=>`<div class="cart-row"><div class="mini">${x.icon}</div><div><b>${x.name}</b><div class="gold">${x.price.toLocaleString()} ج.م</div></div></div>`).join('')+`<div class="total"><div class="total-line"><span>الإجمالي</span><b>${total.toLocaleString()} ج.م</b></div><button class="btn buy" onclick="alert('تم إنشاء طلب تجريبي رقم AM12345')">إتمام الطلب</button></div>`}
+
+/*
+  IMPORTANT:
+  ضع رقمك الحقيقي هنا بعد ذلك.
+  مثال مصر:
+  2010XXXXXXXX
+*/
+const WHATSAPP_NUMBER = "201000000000";
+const PHONE_NUMBER = "01000000000";
+
+let selectedService = "";
+
+function openOrder(){
+  document.getElementById("orderModal").classList.add("show");
+}
+
+function closeOrder(){
+  document.getElementById("orderModal").classList.remove("show");
+}
+
+function selectService(service){
+  selectedService = service;
+  openOrder();
+  document.getElementById("service").value = service;
+}
+
+function whatsapp(){
+  window.open(
+    "https://wa.me/" + WHATSAPP_NUMBER,
+    "_blank"
+  );
+}
+
+function callUs(){
+  window.location.href = "tel:" + PHONE_NUMBER;
+}
+
+function sendOrder(){
+
+  const service =
+    document.getElementById("service").value;
+
+  const name =
+    document.getElementById("name").value;
+
+  const phone =
+    document.getElementById("phone").value;
+
+  const details =
+    document.getElementById("details").value;
+
+  if(!service || !name || !phone){
+    alert("من فضلك اكتب الاسم ورقم الموبايل واختر الخدمة.");
+    return;
+  }
+
+  const message =
+    "طلب خدمة جديد من AMUSTA%0A%0A" +
+    "الخدمة: " + encodeURIComponent(service) + "%0A" +
+    "الاسم: " + encodeURIComponent(name) + "%0A" +
+    "الموبايل: " + encodeURIComponent(phone) + "%0A" +
+    "التفاصيل: " + encodeURIComponent(details);
+
+  window.open(
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    message,
+    "_blank"
+  );
+}
+
+function goHome(){
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
 </script>
-</body></html>
+
+</body>
+</html>
