@@ -1,11 +1,11 @@
 {
-  "name": "AMUSTA - بيع وخدمات",
+  "name": "AMUSTA - تجارة التجزئة",
   "short_name": "AMUSTA",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#071426",
   "theme_color": "#071426",
   "lang": "ar",
-  "dir": "rtl",
-  "icons": []
+  "dir": "rtl"
 }
